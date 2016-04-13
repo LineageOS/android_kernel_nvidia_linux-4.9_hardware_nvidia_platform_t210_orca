@@ -104,7 +104,7 @@
 					pins = "gpio3";
 					function = "fps-out";
 					drive-open-drain = <1>;
-					maxim,fps-source = <FPS_SRC_1>;
+					maxim,active-fps-source = <MAX77620_FPS_SRC_1>;
 				};
 
 				pin_gpio4 {
@@ -131,31 +131,28 @@
 			fps {
 				#address-cells = <1>;
 				#size-cells = <0>;
-				fps@0 {
+				fps0 {
 					reg = <0>;
 			/* FIXME: The maximum timer period is 5120us for 77620,
 			* is 2560us for 20024.
 			* As we are using compatible driver, set timer period
 			* to 1280 to enable timer period 640 for 20024.
 			*/
-					maxim,fps-time-period = <1280>;
-					maxim,fps-enable-input = <
-								FPS_EN_SRC_EN0>;
+					maxim,shutdown-fps-time-period-us = <1280>;
+					maxim,fps-event-source = <MAX77620_FPS_EVENT_SRC_EN0>;
 				};
 
-				fps@1 {
+				fps1 {
 					reg = <1>;
-					maxim,fps-time-period = <1280>;
-					maxim,fps-enable-input = <
-								FPS_EN_SRC_EN1>;
-					maxim,enable-sleep;
+					maxim,shutdown-fps-time-period-us = <1280>;
+					maxim,fps-event-source = <MAX77620_FPS_EVENT_SRC_EN1>;
+					maxim,device-state-on-disabled-event = <0>;
 				};
 
-				fps@2 {
+				fps2 {
 					reg = <2>;
-					maxim,fps-time-period = <1280>;
-					maxim,fps-enable-input = <
-								FPS_EN_SRC_SW>;
+					maxim,shutdown-fps-time-period-us = <1280>;
+					maxim,fps-event-source = <MAX77620_FPS_EVENT_SRC_SW>;
 				};
 			};
 
@@ -172,7 +169,7 @@
 					regulator-max-microvolt = <1200000>;
 					regulator-always-on;
 					regulator-boot-on;
-					maxim,fps-source = <FPS_SRC_DEF>;
+					maxim,active-fps-source = <MAX77620_FPS_SRC_DEF>;
 					regulator-enable-ramp-delay = <130>;
 					regulator-disable-ramp-delay = <145800>;
 				};
@@ -183,7 +180,7 @@
 					regulator-max-microvolt = <1800000>;
 					regulator-always-on;
 					regulator-boot-on;
-					maxim,fps-source = <FPS_SRC_DEF>;
+					maxim,active-fps-source = <MAX77620_FPS_SRC_DEF>;
 					regulator-enable-ramp-delay = <176>;
 					regulator-disable-ramp-delay = <32000>;
 				};
@@ -194,7 +191,7 @@
 					regulator-max-microvolt = <3300000>;
 					regulator-always-on;
 					regulator-boot-on;
-					maxim,fps-source = <FPS_SRC_DEF>;
+					maxim,active-fps-source = <MAX77620_FPS_SRC_DEF>;
 					regulator-enable-ramp-delay = <242>;
 					regulator-disable-ramp-delay = <118000>;
 				};
@@ -203,7 +200,7 @@
 					regulator-name = "vdd-sdmmc1";
 					regulator-min-microvolt = <1800000>;
 					regulator-max-microvolt = <3300000>;
-					maxim,fps-source = <FPS_SRC_DEF>;
+					maxim,active-fps-source = <MAX77620_FPS_SRC_DEF>;
 					regulator-enable-ramp-delay = <50>;
 					regulator-disable-ramp-delay = <1110>;
 				};
@@ -213,7 +210,7 @@
 					regulator-min-microvolt = <800000>;
 					regulator-max-microvolt = <1587500>;
 					regulator-init-microvolt = <875000>;
-					maxim,fps-source = <FPS_SRC_DEF>;
+					maxim,active-fps-source = <MAX77620_FPS_SRC_DEF>;
 					regulator-enable-ramp-delay = <50>;
 					regulator-disable-ramp-delay = <1110>;
 				};
@@ -222,7 +219,7 @@
 					regulator-name = "vdd-sdmmc3";
 					regulator-min-microvolt = <1800000>;
 					regulator-max-microvolt = <3300000>;
-					maxim,fps-source = <FPS_SRC_DEF>;
+					maxim,active-fps-source = <MAX77620_FPS_SRC_DEF>;
 					regulator-enable-ramp-delay = <50>;
 					regulator-disable-ramp-delay = <1110>;
 				};
@@ -233,7 +230,7 @@
 					regulator-max-microvolt = <1800000>;
 					regulator-always-on;
 					regulator-boot-on;
-					maxim,fps-source = <FPS_SRC_DEF>;
+					maxim,active-fps-source = <MAX77620_FPS_SRC_DEF>;
 					regulator-enable-ramp-delay = <36>;
 					regulator-disable-ramp-delay = <674>;
 				};
@@ -244,7 +241,7 @@
 					regulator-max-microvolt = <1050000>;
 					regulator-always-on;
 					regulator-boot-on;
-					maxim,fps-source = <FPS_SRC_DEF>;
+					maxim,active-fps-source = <MAX77620_FPS_SRC_DEF>;
 					regulator-enable-ramp-delay = <24>;
 					regulator-disable-ramp-delay = <2768>;
 				};
