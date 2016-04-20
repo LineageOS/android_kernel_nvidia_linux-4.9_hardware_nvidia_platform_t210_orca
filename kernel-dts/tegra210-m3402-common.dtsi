@@ -40,6 +40,10 @@
 
 #include <dt-bindings/input/input.h>
 
+#define EXTCON_NONE		0
+#define EXTCON_USB		1
+#define EXTCON_USB_Host		2
+
 / {
 	model = "m3402";
 	compatible = "nvidia,m3402", "nvidia,tegra210";
@@ -126,7 +130,8 @@
 						      0x1 0x2
 						      0x2 0x1>;
 			  gpios = <&gpio TEGRA_GPIO(Z, 0) 0 &max20024 0 0>;
-			  extcon-gpio,out-cable-names = "USB", "USB-Host";
+			  extcon-gpio,out-cable-name-strings = "USB", "USB-Host";
+			  extcon-gpio,out-cable-names = <EXTCON_USB EXTCON_USB_Host EXTCON_NONE>;
 			  #extcon-cells = <1>;
 			  extcon-gpio,debounce = <0x900000>;
 		  };
