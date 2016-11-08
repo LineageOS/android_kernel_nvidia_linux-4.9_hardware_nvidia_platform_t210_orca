@@ -226,13 +226,13 @@
 
 	pcie-controller {
 		status = "okay";
-		nvidia,lane-map = <0x14>;
 		pci@1,0 {
 			status = "okay";
 			nvidia,num-lanes = <4>;
 		};
 
 		pci@2,0 {
+			nvidia,num-lanes = <1>;
 			status = "disabled";
 		};
 	};
