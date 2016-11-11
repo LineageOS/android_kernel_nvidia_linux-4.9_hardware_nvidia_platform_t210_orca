@@ -13,7 +13,7 @@
  *
  */
 
-#include "tegra210-platforms/tegra210-pmic-m3402-a00.dtsi"
+#include "tegra210-pmic-m3402-a00.dtsi"
 
 / {
 
