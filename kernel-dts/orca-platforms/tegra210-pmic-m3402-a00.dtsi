@@ -286,24 +286,6 @@
 			regulator-always-on;
 			regulator-enable-ramp-delay = <160>;
 			regulator-disable-ramp-delay = <10000>;
-			consumers {
-			c1 {
-				regulator-consumer-supply = "avdd_usb";
-				regulator-consumer-device = "tegra-ehci.0";
-			};
-			c2 {
-				regulator-consumer-supply = "avdd_usb";
-				regulator-consumer-device = "tegra-ehci.1";
-			};
-			c3 {
-				regulator-consumer-supply = "avdd_usb";
-				regulator-consumer-device = "tegra-ehci.2";
-			};
-			c5 {
-				regulator-consumer-supply = "vdd";
-				regulator-consumer-device = "1-004d";
-			};
-			};
 		};
 
 		vdd_dummy: regulator@2 {
@@ -426,16 +408,6 @@
 			vin-supply = <&vdd_3v3>;
 			regulator-always-on;
 			enable-active-high;
-			consumers {
-			c0 {
-				regulator-consumer-supply = "usb_vbus";
-				regulator-consumer-device = "tegra-ehci.1";
-			};
-			c1 {
-				regulator-consumer-supply = "usb_vbus";
-				regulator-consumer-device = "tegra-ehci.2";
-			};
-			};
 		};
 
 		vdd_cdc_1v2_aud: regulator@101 {
