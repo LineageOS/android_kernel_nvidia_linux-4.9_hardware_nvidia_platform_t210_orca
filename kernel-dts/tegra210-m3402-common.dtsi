@@ -490,4 +490,11 @@
 		status = "okay";
 	};
 
+	host1x {
+		sor1 {
+			hdmi-display {
+				status = "disabled";
+			};
+		};
+	};
 };
