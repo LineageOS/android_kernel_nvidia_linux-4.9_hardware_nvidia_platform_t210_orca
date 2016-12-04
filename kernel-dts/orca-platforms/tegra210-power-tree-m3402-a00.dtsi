@@ -30,6 +30,11 @@
 			avdd_lcd-supply = <&vdd_disp_3v0>;	/* FIXME */
 			dvdd_lcd-supply = <&max20024_sd2>;	/* 1v8 */
 			vdd_lcd_bl_en-supply = <&lcd_bl_en>;	/* FIXME */
+
+			vdd-dp-pwr-supply = <&vdd_dummy>;
+			avdd-dp-pll-supply = <&vdd_dummy>;
+			vdd-edp-sec-mode-supply = <&vdd_dummy>;
+			vdd-dp-pad-supply = <&vdd_dummy>;
 	};
 
 		/* tegradc.1 */
@@ -40,6 +45,11 @@
 			avdd_lcd-supply = <&vdd_disp_3v0>;
 			dvdd_lcd-supply = <&max20024_sd2>;
 			vdd_lcd_bl_en-supply = <&lcd_bl_en>;
+
+			vdd-dp-pwr-supply = <&vdd_dummy>;
+			avdd-dp-pll-supply = <&vdd_dummy>;
+			vdd-edp-sec-mode-supply = <&vdd_dummy>;
+			vdd-dp-pad-supply = <&vdd_dummy>;
 		};
 
 		vi {
