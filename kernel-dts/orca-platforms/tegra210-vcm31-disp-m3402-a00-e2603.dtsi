@@ -53,7 +53,7 @@
 		sor {
 			status = "okay";
 			panel-a-edp-1080p-14-0 {
-				status = "okay";
+				status = "disabled";
 				nvidia,link-bw = <SOR_LINK_SPEED_G5_4>;
 				disp-default-out {
 					nvidia,out-flags = <TEGRA_DC_OUT_CONTINUOUS_MODE TEGRA_DC_OUT_HOTPLUG_HIGH>;
