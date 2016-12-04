@@ -29,6 +29,7 @@
 			nvidia,low-v-win = <0x2>;
 			nvidia,fb-bpp = <32>; /* bits per pixel */
 			nvidia,fb-flags = <TEGRA_FB_FLIP_ON_PROBE>;
+			nvidia,dc-or-node = "/host1x/sor";
 		};
 
 		/* tegradc.1 */
@@ -38,6 +39,7 @@
 			nvidia,emc-clk-rate = <204000000>;
 			nvidia,fb-bpp = <32>; /* bits per pixel */
 			nvidia,fb-flags = <TEGRA_FB_FLIP_ON_PROBE>;
+			nvidia,dc-or-node = "/host1x/sor1";
 		};
 
 		dpaux {
@@ -67,6 +69,7 @@
 				status ="okay";
 				compatible = "dp, display";
 				nvidia,tx-pu-disable = <0>;
+				nvidia,is_ext_dp_panel = <1>;
 				nvidia,link-bw = <SOR_LINK_SPEED_G5_4>;
 				disp-default-out {
 					nvidia,out-type = <TEGRA_DC_OUT_DP>;
