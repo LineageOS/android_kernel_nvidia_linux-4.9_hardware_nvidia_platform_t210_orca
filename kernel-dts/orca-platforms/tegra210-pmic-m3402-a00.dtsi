@@ -16,7 +16,7 @@
 #include <dt-bindings/regulator/regulator.h>
 #include <dt-bindings/mfd/max77620.h>
 #include <dt-bindings/gpio/tegra-gpio.h>
-
+#include <dt-bindings/soc/tegra-pmc.h>
 
 / {
 
@@ -62,6 +62,8 @@
 			compatible = "maxim,max20024";
 			reg = <0x3c>;
 			interrupts = <0 86 IRQ_TYPE_NONE>;
+			nvidia,pmc-wakeup = <&tegra_pmc
+				PMC_WAKE_TYPE_EVENT 51 PMC_TRIGGER_TYPE_LOW>;
 
 			#interrupt-cells = <2>;
 			interrupt-controller;

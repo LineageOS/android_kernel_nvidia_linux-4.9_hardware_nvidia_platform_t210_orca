@@ -35,6 +35,7 @@
 
 #include <panels/panel-a-edp-1080p-14-0.dtsi>
 
+#include <dt-bindings/soc/tegra-pmc.h>
 #include <dt-bindings/sound/tegra-asoc-alt.h>
 #include <dt-bindings/display/tegra-dc.h>
 #include <dt-bindings/display/tegra-panel.h>
@@ -100,6 +101,11 @@
 
 	serial@70006300 {
 		status = "disabled";
+	};
+
+	rtc {
+		nvidia,pmc-wakeup = <&tegra_pmc PMC_WAKE_TYPE_EVENT 16
+				     PMC_TRIGGER_TYPE_HIGH>;
 	};
 
 	pmc@7000e400 {
@@ -173,6 +179,11 @@
 		nvidia,ulpicap = <0>; /* No ulpi support. can we remove */
 		nvidia,portmap = <0x0E01>;
 		nvidia,common_padctl = <&xusb_pad_ctl>;
+		nvidia,pmc-wakeup =
+			<&tegra_pmc
+				PMC_WAKE_TYPE_EVENT 41 PMC_TRIGGER_TYPE_HIGH>,
+			<&tegra_pmc
+				PMC_WAKE_TYPE_EVENT 44 PMC_TRIGGER_TYPE_HIGH>;
 		status = "okay";
 	};
 
