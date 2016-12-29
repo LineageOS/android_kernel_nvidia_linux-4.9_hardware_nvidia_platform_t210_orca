@@ -17,7 +17,6 @@
 #include <panels/panel-a-edp-1080p-14-0.dtsi>
 #include <dt-bindings/display/tegra-dc.h>
 #include <dt-bindings/display/tegra-panel.h>
-#include <dt-bindings/soc/tegra-pmc.h>
 
 / {
 	host1x {
@@ -76,8 +75,6 @@
 			status = "okay";
 			nvidia,sor1-output-type = "dp";
 			nvidia,hpd-gpio = <&gpio TEGRA_GPIO(CC, 1) 1>; /* PPC1 */
-			nvidia,pmc-wakeup = <&tegra_pmc
-				PMC_WAKE_TYPE_EVENT 53 PMC_TRIGGER_TYPE_LOW>;
 			dp-display {
 				status ="okay";
 				compatible = "dp, display";
