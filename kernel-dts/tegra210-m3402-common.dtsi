@@ -3,7 +3,7 @@
  *
  * arch/arm64/boot/dts/tegra210-m3402-common.dtsi
  *
- * Copyright (c) 2016, NVIDIA CORPORATION.  All rights reserved.
+ * Copyright (c) 2016-2017, NVIDIA CORPORATION.  All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,6 +29,8 @@
 #include "orca-platforms/tegra210-power-tree-m3402-a00.dtsi"
 #include "orca-platforms/tegra210-power-dvfs-m3402-a00.dtsi"
 #include "orca-platforms/tegra210-emc-m3402-a00.dtsi"
+#include "orca-platforms/tegra210-m3402-a00-pinmux.dtsi"
+#include "orca-platforms/tegra210-m3402-a00-gpio-default.dtsi"
 #include <t210-common-platforms/tegra210-ers-clk-init.dtsi>
 #include <t210-common-platforms/tegra210-pinmux-drive-sdmmc-common.dtsi>
 #include <t210-common-platforms/tegra210-dp.dtsi>
