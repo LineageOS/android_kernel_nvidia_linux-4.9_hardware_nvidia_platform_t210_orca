@@ -35,6 +35,11 @@
 			avdd-dp-pll-supply = <&vdd_dummy>;
 			vdd-edp-sec-mode-supply = <&vdd_dummy>;
 			vdd-dp-pad-supply = <&vdd_dummy>;
+
+			vdd_ds_1v8-supply = <&lcd_bl_en>;
+			vdd_lcd_bl-supply = <&vdd_3v3>;
+			vdd_lcd_bl_en-supply = <&lcd_bl_en>;
+			avdd_3v3_dp-supply = <&vdd_3v3>;
 	};
 
 		/* tegradc.1 */
