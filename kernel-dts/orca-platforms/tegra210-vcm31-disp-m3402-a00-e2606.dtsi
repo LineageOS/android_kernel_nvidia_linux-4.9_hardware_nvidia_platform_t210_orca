@@ -54,6 +54,7 @@
 			status = "okay";
 			panel-a-edp-1080p-14-0 {
 				status = "okay";
+				nvidia,edp-lvds-bridge = <1>;
 				nvidia,edid = [
 						00 ff ff ff ff ff ff 00 3a c4 00 00 00 00 00 00
 						2d 0c 01 04 a0 20 12 00 ea a8 e0 99 57 4b 92 25
@@ -68,6 +69,9 @@
 				disp-default-out {
 					nvidia,out-flags = <TEGRA_DC_OUT_CONTINUOUS_MODE TEGRA_DC_OUT_HOTPLUG_HIGH>;
                                 };
+			};
+			dp-display {
+				status = "disabled";
 			};
 		};
 
