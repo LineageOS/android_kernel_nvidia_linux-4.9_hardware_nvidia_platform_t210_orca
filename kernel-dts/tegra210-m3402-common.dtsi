@@ -19,6 +19,9 @@
 #include <tegra210-soc/tegra210-soc-shield.dtsi>
 #include <dt-bindings/interrupt-controller/arm-gic.h>
 #include <dt-bindings/gpio/tegra-gpio.h>
+#include <dt-bindings/clock/tegra210-car.h>
+#include <dt-bindings/reset/tegra210-car.h>
+#include <dt-bindings/soc/tegra-pmc.h>
 #include <tegra210-soc/tegra210-prods.dtsi>
 
 #include <tegra210-soc/tegra210-edp.dtsi>
@@ -32,6 +35,7 @@
 #include "orca-platforms/tegra210-m3402-a00-gpio-default.dtsi"
 #include <t210-common-platforms/tegra210-pinmux-drive-sdmmc-common.dtsi>
 #include <t210-common-platforms/tegra210-dp.dtsi>
+#include <t210-common-platforms/tegra210-cpufreq.dtsi>
 
 #include <panels/panel-a-edp-1080p-14-0.dtsi>
 
@@ -78,6 +82,18 @@
 	cpuidle {
 		cc4-no-retention;
 	};
+
+        cpus {
+                cpu@0 {
+                        clocks = <&tegra_car TEGRA210_CLK_CCLK_G>,
+                                 <&tegra_car TEGRA210_CLK_CCLK_LP>,
+                                 <&tegra_car TEGRA210_CLK_PLL_X>,
+                                 <&tegra_car TEGRA210_CLK_PLL_P_OUT4>,
+                                 <&dfll>;
+                        clock-names = "cpu_g", "cpu_lp", "pll_x", "pll_p", "dfll";
+                        clock-latency = <300000>;
+                };
+        };
 
 	chosen {
 		bootargs = "earlycon=uart8250,mmio32,0x70006040";

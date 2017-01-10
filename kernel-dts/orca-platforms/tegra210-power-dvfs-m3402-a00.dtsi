@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016, NVIDIA CORPORATION.  All rights reserved.
+ * Copyright (c) 2016-2017, NVIDIA CORPORATION.  All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,13 +19,34 @@
 		status = "disabled";
 	};
 
-	dfll-max16989@70110000 {
-		status = "disabled";
+	dfll: clock@70110000 {
+		status = "okay";
 		compatible = "nvidia,tegra210-dfll";
-		reg = <0x0 0x70110000 0x0 0x400>;
+		interrupts = <GIC_SPI 62 IRQ_TYPE_LEVEL_HIGH>;
+		reg = <0 0x70110000 0 0x100>, /* DFLL control */
+			<0 0x70110000 0 0x100>, /* I2C output control */
+			<0 0x70110100 0 0x100>, /* Integrated I2C controller */
+			<0 0x70110200 0 0x100>; /* Look-up table RAM */
 		out-clock-name="dfll_cpu";
+		clocks = <&tegra_car TEGRA210_CLK_DFLL_SOC>,
+			 <&tegra_car TEGRA210_CLK_DFLL_REF>,
+			 <&tegra_car TEGRA210_CLK_I2C5>;
+		clock-names = "soc", "ref", "i2c";
+		resets = <&tegra_car TEGRA210_RST_DFLL_DVCO>;
+		reset-names = "dvco";
+		#clock-cells = <0>;
+		clock-output-names = "dfllCPU_out";
 		board-params = <&dfll_max16989_parms>;
+		vdd-cpu-supply = <&cpu_gpu_max16989_reg>;
 		i2c-pmic-integration = <&i2c_dfll>;
+		nvidia,align-step-uv = <10000>;
+		nvidia,sample-rate = <12500>;
+		nvidia,droop-ctrl = <0x00000f00>;
+		nvidia,force-mode = <1>;
+		nvidia,cf = <6>;
+		nvidia,ci = <0>;
+		nvidia,cg = <2>;
+		nvidia,i2c-fs-rate = <400000>;
 
 		i2c_dfll: dfll-max16989-integration {
 			pmic-i2c-address = <0x74>;
@@ -47,7 +68,7 @@
 	};
 
 	cpu_edp {
-		status = "disabled";
+		status = "okay";
 		nvidia,edp_limit = <25000>;
 	};
 
@@ -83,7 +104,7 @@
 		};
 
 		vdd-core-rail-max16989@4 {
-			status = "disabled";
+			status = "okay";
 		};
 
 		cpu_vmin_cdev: vdd-cpu-vmin-cdev@5 {
