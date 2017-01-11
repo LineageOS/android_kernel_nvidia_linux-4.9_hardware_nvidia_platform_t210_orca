@@ -529,6 +529,12 @@
 				status = "disabled";
 			};
 		};
+		vi {
+			avdd_dsi_csi-supply = <&max20024_sd2>;
+		};
+		i2c@546c0000 {
+			avdd_dsi_csi-supply = <&max20024_sd2>;
+		};
 	};
 
 	mailbox@70098000 {
