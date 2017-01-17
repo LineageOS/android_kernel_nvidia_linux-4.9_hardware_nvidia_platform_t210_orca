@@ -55,6 +55,7 @@
 			panel-a-edp-1080p-14-0 {
 				status = "okay";
 				nvidia,edp-lvds-bridge = <1>;
+				nvidia,edp-lvds-i2c-bus-no = <0>;
 				nvidia,edid = [
 						00 ff ff ff ff ff ff 00 3a c4 00 00 00 00 00 00
 						2d 0c 01 04 a0 20 12 00 ea a8 e0 99 57 4b 92 25
