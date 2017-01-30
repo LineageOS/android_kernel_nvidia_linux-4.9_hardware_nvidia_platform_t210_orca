@@ -97,6 +97,7 @@
 			compatible = "nvidia,tegra210-dvfs-rail";
 			vdd_cpu-supply = <&cpu_gpu_max16989_reg>;
 			vmin-cdev = <&cpu_vmin_cdev>;
+			vmax-cdev = <&cpu_vmax_cdev>;
 		};
 
 		vdd-gpu-rail-max16989@3 {
@@ -115,7 +116,7 @@
 			compatible = "nvidia,tegra210-rail-vmin-cdev";
 			cdev-type = "cpu_cold";
 			nvidia,constraint;
-			nvidia,trips = <&cpu_vmin1 950>;
+			nvidia,trips = <&cpu_vmin1 840>;
 		};
 
 		core_vmin_cdev: vdd-core-vmin-cdev@6 {
@@ -126,7 +127,6 @@
 			compatible = "nvidia,tegra210-rail-vmin-cdev";
 			cdev-type = "core_cold";
 			nvidia,constraint;
-			nvidia,trips = <&core_vmin1 950>;
 		};
 
 		gpu_scaling_cdev: vdd-gpu-scaling-cdev@7 {
@@ -137,8 +137,22 @@
 			compatible = "nvidia,tegra210-rail-scaling-cdev";
 			cdev-type = "gpu_scaling";
 			nvidia,constraint;
-			nvidia,trips = <&gpu_scaling0 950 &gpu_scaling1 0>;
+			nvidia,trips = <&gpu_scaling0 0
+					&gpu_scaling1 0
+					&gpu_scaling2 0
+					&gpu_scaling3 0
+					&gpu_scaling4 0>;
+		};
+
+		cpu_vmax_cdev: vdd-cpu-vmax-cdev@8 {
+			reg = <8>;
+			cooling-min-state = <0>;
+			cooling-max-state = <1>;
+			#cooling-cells = <2>;
+			compatible = "nvidia,tegra210-rail-vmax-cdev";
+			cdev-type = "cpu_hot";
+			nvidia,constraint;
+			nvidia,trips = <&cpu_vmax1 1120>;
 		};
 	};
-
 };

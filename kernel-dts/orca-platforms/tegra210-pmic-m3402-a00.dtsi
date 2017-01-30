@@ -49,7 +49,7 @@
 			status = "okay";
 			regulator-name = "vdd-soc";
 			regulator-init-microvolt = <1100000>;
-			regulator-min-microvolt = <1000000>;
+			regulator-min-microvolt = <950000>;
 			regulator-max-microvolt = <1200000>;
 			regulator-boot-on;
 			regulator-always-on;

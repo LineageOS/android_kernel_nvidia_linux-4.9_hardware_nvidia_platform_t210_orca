@@ -98,10 +98,59 @@
 	chosen {
 		bootargs = "earlycon=uart8250,mmio32,0x70006040";
 		stdout-path = &uartb;
+		nvidia,tegra-joint_xpu_rail;
+		nvidia,tegra-always-on-personality;
+	};
+
+	pmc@7000e400 {
+		nvidia,invert-interrupt;
+		bootrom-commands {
+			reset-commands {
+				nvidia,command-retries-count = <2>;
+				nvidia,delay-between-commands-us = <10>;
+				nvidia,wait-before-start-bus-clear-us = <10>;
+				#address-cells = <1>;
+				#size-cells = <0>;
+				commands@4-003c {
+					nvidia,command-names = "pmic-rails";
+					reg = <0x3c>;
+					nvidia,enable-8bit-register;
+					nvidia,enable-8bit-data;
+					nvidia,controller-type-i2c;
+					nvidia,controller-id = <4>;
+					nvidia,enable-controller-reset;
+					nvidia,write-commands = <0x00000016 0x00000020>;
+				};
+			};
+			power-off-commands {
+				nvidia,command-retries-count = <2>;
+				nvidia,delay-between-commands-us = <10>;
+				nvidia,wait-before-start-bus-clear-us = <10>;
+				#address-cells = <1>;
+				#size-cells = <0>;
+				commands@4-003c {
+					nvidia,command-names = "pmic-rails";
+					reg = <0x3c>;
+					nvidia,enable-8bit-register;
+					nvidia,enable-8bit-data;
+					nvidia,controller-type-i2c;
+					nvidia,controller-id = <4>;
+					nvidia,enable-controller-reset;
+					nvidia,write-commands = <0x3B 0x01
+								0x42 0x5B
+								0x41 0xF8>;
+				};
+			};
+		};
+	};
+
+	mipical {
+		status = "disabled";
 	};
 
 	serial@70006000 {
-		status = "disabled";
+		status = "okay";
+		compatible = "nvidia,tegra210-uart";
 	};
 
 	serial@70006040 {
@@ -112,11 +161,12 @@
 	};
 
 	serial@70006200 {
-		status = "disabled";
+		status = "okay";
 	};
 
 	serial@70006300 {
-		status = "disabled";
+		status = "okay";
+		compatible = "nvidia,tegra210-uart";
 	};
 
 	rtc {
@@ -142,6 +192,24 @@
 	sata@70020000 {
 		status = "okay";
 		nvidia,enable-sata-port;
+	};
+
+	i2c@7000c700 {
+		status = "disabled";
+	};
+
+	i2c@7000d100 {
+		status = "disabled";
+	};
+
+	i2c@7000c400 {
+		status = "okay";
+		clock-frequency = <1000000>;
+	};
+
+	i2c@7000c500 {
+		status = "okay";
+		clock-frequency = <1000000>;
 	};
 
 	extcon {
@@ -172,14 +240,10 @@
 	};
 
 	xusb_pad_ctl: xusb_padctl {
-		nvidia,ss_portmap = <0x7771>;
-		/* Use 0xF to disable lane assign */
-		nvidia,lane_owner = <0xFFF6>;
-		nvidia,otg_portmap = <0x0100>;
-		/*
-		 *nvidia,lane-map = <0x00000002>;
-		 *nvidia,enable-sata-port;
-		 */
+		nvidia,ss_ports = <TEGRA_XHCI_SS_P0 TEGRA_XHCI_USB2_P0 TEGRA_XHCI_LANE_6 TEGRA_XHCI_PORT_STD
+				TEGRA_XHCI_SS_P1 TEGRA_XHCI_UNUSED_PORT TEGRA_XHCI_UNUSED_LANE TEGRA_XHCI_PORT_STD
+				TEGRA_XHCI_SS_P2 TEGRA_XHCI_UNUSED_PORT TEGRA_XHCI_UNUSED_LANE TEGRA_XHCI_PORT_STD
+				TEGRA_XHCI_SS_P3 TEGRA_XHCI_UNUSED_PORT TEGRA_XHCI_UNUSED_LANE TEGRA_XHCI_PORT_STD>;
 		status = "okay";
 	};
 
@@ -225,7 +289,7 @@
 		nvidia,common_padctl = <&xusb_pad_ctl>;
 		nvidia,portmap = <0x0100>;
 		#extcon-cells = <1>;
-		status = "okay";
+		status = "disabled";
 		extcon-cables = <&vbus_gpio_extcon 0 &vbus_gpio_extcon 1>;
 		extcon-cable-names = "vbus", "id";
 	};
@@ -250,25 +314,71 @@
 		extcon-cable-names = "vbus", "id";
 	};
 
-	spi@7000da00 {
-		status = "disabled";
+	spi@7000d400 {
+		status = "okay";
 		spi@0 {
-			compatible = "saf36xx";
-			spi-max-frequency = <4000000>;
-			spi-cpha;
+			compatible = "spidev";
 			reg = <0>;
+			spi-max-frequency = <46000000>;
 		};
-		spi-touch19x12@0 {
-			avdd-supply = <&vdd_dummy>;
-			dvdd-supply = <&vdd_dummy>;
+		spi@1 {
+			compatible = "spidev";
+			reg = <1>;
+			spi-max-frequency = <46000000>;
 		};
-		spi-touch25x16@0 {
-			avdd-supply = <&vdd_dummy>;
-			dvdd-supply = <&vdd_dummy>;
+	};
+
+	spi@7000d600 {
+		status = "okay";
+		spi@0 {
+			compatible = "spidev";
+			reg = <0>;
+			spi-max-frequency = <46000000>;
 		};
-		spi-touch14x8@0 {
-			avdd-supply = <&vdd_dummy>;
-			dvdd-supply = <&vdd_dummy>;
+		spi@1 {
+			compatible = "spidev";
+			reg = <1>;
+			spi-max-frequency = <46000000>;
+		};
+	};
+
+	spi@7000d800 {
+		status = "okay";
+		spi@0 {
+			compatible = "spidev";
+			reg = <0>;
+			spi-max-frequency = <46000000>;
+		};
+	};
+
+	spi@7000da00 {
+		status = "okay";
+		spi@0 {
+			compatible = "spidev";
+			reg = <0>;
+			spi-max-frequency = <46000000>;
+		};
+	};
+
+	spi@70410000 {
+		status = "okay";
+		nvidia,x4-is-ddr=<0>;
+
+		spi@0 { /* Qspi FRAM */
+			compatible = "spidev";
+			reg = <0>;
+			spi-max-frequency = <108000000>;
+
+			controller-data {
+				nvidia,x1-bus-speed = <108000000>; /* In Hz */
+				nvidia,x1-dymmy-cycle = <0>;
+				nvidia,x4-bus-speed = <108000000>;
+				nvidia,x4-dymmy-cycle = <0>;
+				nvidia,ifddr-div2-sdr = <0>;
+				nvidia,x4-is-ddr=<0>;
+				nvidia,rx-clk-tap-delay = <0x0c>;
+				nvidia,tx-clk-tap-delay = <0x24>;
+			};
 		};
 	};
 
@@ -301,8 +411,23 @@
 		};
 	};
 
+	cpus {
+		cpu@0 {
+			cpu-capacity = <1024>;
+		};
+		cpu@1 {
+			cpu-capacity = <1024>;
+		};
+		cpu@2 {
+			cpu-capacity = <1024>;
+		};
+		cpu@3 {
+			cpu-capacity = <1024>;
+		};
+	};
+
 	thermal-zones {
-		CPU_therm {
+		CPU-therm {
 			thermal-zone-params {
 				governor-name = "pid_thermal_gov";
 				max_err_temp = <9000>;
@@ -315,22 +440,15 @@
 
 			trips {
 				cpu_critical {
-					temperature = <99000>;
+					temperature = <105000>;
 					hysteresis = <0>;
 					type = "critical";
 					writable;
 				};
 
-				cpu_heavy {
-					temperature = <95000>;
-					hysteresis = <0>;
-					type = "hot";
-					writable;
-				};
-
 				cpu_throttle {
-					temperature = <85500>;
-					hysteresis = <0>;
+					temperature = <91000>;
+					hysteresis = <1000>;
 					type = "passive";
 					writable;
 				};
@@ -341,12 +459,19 @@
 					type = "active";
 					writable;
 				};
+
+				cpu_vmax1: cpu-vmax1 {
+					temperature = <90000>;
+					hysteresis = <1000>;
+					type = "active";
+					writable;
+				};
 			};
 			cooling-maps {
 
 				map0 {
 					trip = <
-			&{/thermal-zones/CPU_therm/trips/cpu_critical}>;
+			&{/thermal-zones/CPU-therm/trips/cpu_critical}>;
 					cdev-type = "tegra-shutdown";
 					cooling-device = <
 			&{/soctherm@0x700E2000/throttle@critical}
@@ -354,15 +479,7 @@
 				};
 				map1 {
 					trip = <
-			&{/thermal-zones/CPU_therm/trips/cpu_heavy}>;
-					cdev-type = "tegra-heavy";
-					cooling-device = <
-			&{/soctherm@0x700E2000/throttle@heavy}
-					THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-				};
-				map2 {
-					trip = <
-			&{/thermal-zones/CPU_therm/trips/cpu_throttle}>;
+			&{/thermal-zones/CPU-therm/trips/cpu_throttle}>;
 					cdev-type = "cpu-balanced";
 					cooling-device = <
 			&{/bthrot_cdev/cpu_balanced}
@@ -372,10 +489,14 @@
 					trip = <&cpu_vmin1>;
 					cooling-device = <&cpu_vmin_cdev 1 1>;
 				};
+				vdd-cpu-map2 {
+					trip = <&cpu_vmax1>;
+					cooling-device = <&cpu_vmax_cdev 1 1>;
+				};
 			};
 		};
 
-		GPU_therm {
+		GPU-therm {
 
 			thermal-zone-params {
 				governor-name = "pid_thermal_gov";
@@ -389,31 +510,49 @@
 
 			trips {
 				gpu_critical {
-					temperature = <97500>;
+					temperature = <105000>;
 					hysteresis = <0>;
 					type = "critical";
 					writable;
 				};
-				gpu_heavy {
-					temperature = <94500>;
-					hysteresis = <0>;
-					type = "hot";
-					writable;
-				};
+
 				gpu_throttle {
-					temperature = <85000>;
-					hysteresis = <0>;
+					temperature = <91000>;
+					hysteresis = <1000>;
 					type = "passive";
 					writable;
 				};
+
 				gpu_scaling0: gpu-scaling0 {
-					temperature = <(-10000)>;
-					hysteresis = <0>;
+					temperature = <(-25000)>;
+					hysteresis = <1000>;
 					type = "active";
+					writable;
 				};
 
 				gpu_scaling1: gpu-scaling1 {
-					temperature = <20000>;
+					temperature = <15000>;
+					hysteresis = <1000>;
+					type = "active";
+					writable;
+				};
+
+				gpu_scaling2: gpu-scaling2 {
+					temperature = <30000>;
+					hysteresis = <1000>;
+					type = "active";
+					writable;
+				};
+
+				gpu_scaling3: gpu-scaling3 {
+					temperature = <50000>;
+					hysteresis = <1000>;
+					type = "active";
+					writable;
+				};
+
+				gpu_scaling4: gpu-scaling4{
+					temperature = <70000>;
 					hysteresis = <1000>;
 					type = "active";
 					writable;
@@ -423,7 +562,7 @@
 			cooling-maps {
 				map0 {
 					trip = <
-			&{/thermal-zones/GPU_therm/trips/gpu_critical}>;
+			&{/thermal-zones/GPU-therm/trips/gpu_critical}>;
 					cdev-type = "tegra-shutdown";
 					cooling-device = <
 			&{/soctherm@0x700E2000/throttle@critical}
@@ -431,15 +570,7 @@
 				};
 				map1 {
 					trip = <
-			&{/thermal-zones/GPU_therm/trips/gpu_heavy}>;
-					cdev-type = "tegra-heavy";
-					cooling-device = <
-			&{/soctherm@0x700E2000/throttle@heavy}
-					THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-				};
-				map2 {
-					trip = <
-			&{/thermal-zones/GPU_therm/trips/gpu_throttle}>;
+			&{/thermal-zones/GPU-therm/trips/gpu_throttle}>;
 					cdev-type = "gpu-balanced";
 					cooling-device = <
 			&{/bthrot_cdev/gpu_balanced}
@@ -450,31 +581,25 @@
 					cooling-device = <
 						&gpu_scaling_cdev 1 1>;
 				};
-			};
-		};
-
-		MEM_therm {
-			trips {
-				mem_critical {
-					temperature = <97500>;
-					hysteresis = <0>;
-					type = "critical";
-					writable;
-				};
-			};
-			cooling-maps {
-				map0 {
-					trip = <
-			&{/thermal-zones/MEM_therm/trips/mem_critical}>;
-					cdev-type = "tegra-shutdown";
+				vdd-gpu-map2 {
+					trip = <&gpu_scaling2>;
 					cooling-device = <
-			&{/soctherm@0x700E2000/throttle@critical}
-					THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
+						&gpu_scaling_cdev 2 2>;
+				};
+				vdd-gpu-map3 {
+					trip = <&gpu_scaling3>;
+					cooling-device = <
+						&gpu_scaling_cdev 3 3>;
+				};
+				vdd-gpu-map4 {
+					trip = <&gpu_scaling4>;
+					cooling-device = <
+						&gpu_scaling_cdev 4 4>;
 				};
 			};
 		};
 
-		PLL_therm {
+		PLL-therm {
 			thermal-zone-params {
 				governor-name = "pid_thermal_gov";
 				max_err_temp = <9000>;
@@ -486,32 +611,20 @@
 			};
 			trips {
 				pll_critical {
-					temperature = <100000>;
+					temperature = <105000>;
 					hysteresis = <0>;
 					type = "critical";
-					writable;
-				};
-
-				core_vmin1: core-vmin1 {
-					temperature = <20000>;
-					hysteresis = <1000>;
-					type = "active";
 					writable;
 				};
 			};
 			cooling-maps {
 				map0 {
 					trip = <
-			&{/thermal-zones/PLL_therm/trips/pll_critical}>;
+			&{/thermal-zones/PLL-therm/trips/pll_critical}>;
 					cdev-type = "tegra-shutdown";
 					cooling-device = <
 			&{/soctherm@0x700E2000/throttle@critical}
 					THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-				};
-
-				vdd-core-map1 {
-					trip = <&core_vmin1>;
-					cooling-device = <&core_vmin_cdev 1 1>;
 				};
 			};
 		};

@@ -61,6 +61,10 @@
 		};
 	};
 
+	pmc-iopower {
+		status = "disabled";
+	};
+
 	sound {
 		/* FIXME */
 		ldoen-supply = <&vdd_sys_boost>;
