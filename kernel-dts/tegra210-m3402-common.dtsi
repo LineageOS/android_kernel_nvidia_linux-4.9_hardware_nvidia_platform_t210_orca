@@ -30,7 +30,6 @@
 #include "orca-platforms/tegra210-emc-m3402-a00.dtsi"
 #include "orca-platforms/tegra210-m3402-a00-pinmux.dtsi"
 #include "orca-platforms/tegra210-m3402-a00-gpio-default.dtsi"
-#include <t210-common-platforms/tegra210-ers-clk-init.dtsi>
 #include <t210-common-platforms/tegra210-pinmux-drive-sdmmc-common.dtsi>
 #include <t210-common-platforms/tegra210-dp.dtsi>
 
