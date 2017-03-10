@@ -73,12 +73,6 @@
 		dmicvdd-supply = <&max20024_sd3>;
 	};
 
-	udc@7d000000 {
-		avdd_usb-supply = <&max20024_sd3>;
-		avdd_pll_utmip-supply = <&max20024_sd2>;
-		usb_bat_chg-supply = <&battery_charger>;
-	};
-
 	xusb@70090000 {
 		usb_vbus0-supply = <&battery_reg>;
 		usb_vbus1-supply = <&usb_vbus1>;
@@ -115,10 +109,6 @@
 		avdd_pll_utmip-supply = <&max20024_sd2>;
 		avddio_usb-supply = <&max20024_ldo7>;
 		avddio_pll_uerefe-supply = <&max20024_ldo7>;
-	};
-
-	otg@7d000000 {
-		usb_vbus-supply = <&battery_reg>;
 	};
 
 	sata@70020000 {
@@ -174,13 +164,6 @@
 			regulator-supplies = "vddio-dmic";
 			vddio-dmic-supply = <&max20024_sd3>;
 		};
-	};
-
-	ehci@7d004000 {
-		avdd_usb-supply = <&max20024_sd3>;
-		avdd_pll_utmip-supply = <&max20024_sd2>;
-		/* FIXME: this is not used by M3402 */
-		vddio_hsic-supply = <&max20024_sd1>;
 	};
 
 	tegra-supply-tests {
