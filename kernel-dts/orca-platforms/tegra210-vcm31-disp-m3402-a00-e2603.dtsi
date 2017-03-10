@@ -67,6 +67,7 @@
 			status = "okay";
 			nvidia,sor1-output-type = "dp";
 			nvidia,hpd-gpio = <&gpio TEGRA_GPIO(CC, 1) 1>; /* PPC1 */
+			nvidia,active-panel = <&sor1_dp_display>;
 			dp-display {
 				status ="okay";
 				compatible = "dp, display";
