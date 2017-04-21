@@ -27,6 +27,7 @@
 #include <tegra210-soc/tegra210-edp.dtsi>
 #include <t210-common-platforms/tegra210-sysedp.dtsi>
 #include <tegra210-soc/tegra210-audio.dtsi>
+#include <t210-common-platforms/tegra210-platform-common-padvoltage-default.dtsi>
 
 #include "orca-platforms/tegra210-power-tree-m3402-a00.dtsi"
 #include "orca-platforms/tegra210-power-dvfs-m3402-a00.dtsi"
