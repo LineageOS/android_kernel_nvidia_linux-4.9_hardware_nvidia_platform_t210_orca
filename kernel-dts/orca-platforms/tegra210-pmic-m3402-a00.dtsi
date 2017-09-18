@@ -21,7 +21,7 @@
 / {
 
 	i2c@7000d000 {
-		nvidia,bit-banging-xfer-after-shutdown;
+		nvidia,bit-bang-after-shutdown;
 
 		cpu_gpu_max16989_reg: max16989@3a {
 			compatible = "maxim,max16989";
